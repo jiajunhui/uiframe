@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- base theme. -->
+    <style name="BaseUIFrameTheme" parent="UIAppTheme">
+
+    </style>
+
+    <!-- AppTheme no title bar-->
+    <style name="UIAppTheme" parent="_AppBaseTheme">
+
+    </style>
+
+    <style name="_AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>
