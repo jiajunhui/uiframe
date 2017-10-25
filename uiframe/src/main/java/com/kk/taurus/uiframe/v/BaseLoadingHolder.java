@@ -18,6 +18,7 @@ package com.kk.taurus.uiframe.v;
 
 import android.content.Context;
 
+import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
 
 /**
@@ -26,12 +27,18 @@ import com.kk.taurus.uiframe.listener.OnHolderListener;
 
 public abstract class BaseLoadingHolder extends BaseHolder {
 
+    protected BaseState mState;
+
     public BaseLoadingHolder(Context context) {
         super(context);
     }
 
     public BaseLoadingHolder(Context context, OnHolderListener onHolderListener) {
         super(context, onHolderListener);
+    }
+
+    public void setState(BaseState state){
+        this.mState = state;
     }
 
 }

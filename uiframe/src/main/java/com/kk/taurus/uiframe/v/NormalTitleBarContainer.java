@@ -59,6 +59,8 @@ public class NormalTitleBarContainer extends BaseStateContainer {
         layoutParams.topMargin = height;
 
         mContentContainer = new FrameLayout(mContext);
+        if(mUserHolder.contentHolder==null)
+            return;
         mContentContainer.addView(mUserHolder.contentHolder.getHolderView()
                 ,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -70,6 +72,8 @@ public class NormalTitleBarContainer extends BaseStateContainer {
         super.setState(state);
         switch (state.getStateCode()){
             case BaseState.STATE_SUCCESS:
+                if(mUserHolder.contentHolder==null)
+                    return;
                 mContentContainer.removeAllViews();
                 BaseHolder contentHolder = mUserHolder.contentHolder;
                 mContentContainer.addView(contentHolder.getHolderView()
@@ -77,6 +81,8 @@ public class NormalTitleBarContainer extends BaseStateContainer {
                                 , ViewGroup.LayoutParams.MATCH_PARENT));
                 break;
             case BaseState.STATE_LOADING:
+                if(mUserHolder.loadingHolder==null)
+                    return;
                 mContentContainer.removeAllViews();
                 BaseHolder loadingHolder = mUserHolder.loadingHolder;
                 mContentContainer.addView(loadingHolder.getHolderView()
@@ -84,6 +90,8 @@ public class NormalTitleBarContainer extends BaseStateContainer {
                                 , ViewGroup.LayoutParams.MATCH_PARENT));
                 break;
             case BaseState.STATE_ERROR:
+                if(mUserHolder.errorHolder==null)
+                    return;
                 mContentContainer.removeAllViews();
                 BaseHolder errorHolder = mUserHolder.errorHolder;
                 mContentContainer.addView(errorHolder.getHolderView()

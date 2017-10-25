@@ -14,12 +14,13 @@
  *    limitations under the License.
  */
 
-package com.kk.taurus.uiframe.a;
+package com.kk.taurus.uiframe.f;
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.i.HolderData;
@@ -32,17 +33,17 @@ import com.kk.taurus.uiframe.v.ContentHolder;
 import com.kk.taurus.uiframe.v.NoTitleBarContainer;
 
 /**
- * Created by Taurus on 2017/9/27.
+ * Created by Taurus on 2017/10/9.
  */
 
-public abstract class StateActivity<T extends HolderData, H extends ContentHolder<T>> extends ToolsActivity implements IUserHolder, OnHolderListener {
+public abstract class StateFragment<T extends HolderData, H extends ContentHolder<T>> extends ToolsFragment implements IUserHolder, OnHolderListener {
 
     private BaseStateContainer mStateContainer;
     protected BaseState mState;
     protected T mData;
 
     @Override
-    protected View getContentView() {
+    protected View getContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mStateContainer = getStateContainer();
         if(mStateContainer==null)
             return null;
@@ -60,7 +61,7 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     }
 
     /**
-     * set activity page state.
+     * set fragment page state.
      * @param state
      */
     protected void setPageState(BaseState state){
@@ -105,49 +106,35 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-        if(getUserContentHolder()!=null)
-            getUserContentHolder().onRestart();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if(getUserContentHolder()!=null)
-            getUserContentHolder().onNewIntent(intent);
-    }
-
-    @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onStart();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onResume();
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onPause();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onStop();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if(getUserContentHolder()!=null)
             getUserContentHolder().onSaveInstanceState(outState);
@@ -161,19 +148,7 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     }
 
     @Override
-    public void onBackPressed() {
-        H userContentHolder = getUserContentHolder();
-        if(userContentHolder==null){
-            super.onBackPressed();
-        }else{
-            if(!userContentHolder.onBackPressed()){
-                super.onBackPressed();
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onDestroy();
@@ -190,11 +165,12 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
      * @return
      */
     protected BaseStateContainer getStateContainer(){
-        return new NoTitleBarContainer(this,this,this);
+        return new NoTitleBarContainer(getActivity(),this,this);
     }
 
     @Override
     public BaseTitleBarHolder onBindTitleBarHolder() {
         return null;
     }
+
 }

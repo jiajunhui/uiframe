@@ -25,7 +25,7 @@ import android.os.Bundle;
  */
 
 public interface IContentHolder {
-    void onHolderCreated(Bundle savedInstanceState);
+    void onHolderCreated();
     Intent getIntent();
     void onNewIntent(Intent intent);
     void onRestart();
@@ -33,11 +33,9 @@ public interface IContentHolder {
     void onResume();
     void onPause();
     void onStop();
+    boolean onBackPressed();
     void onDestroy();
     void finish();
     void onConfigurationChanged(Configuration newConfig);
     void onSaveInstanceState(Bundle outState);
-//    LoadingStateHolder getLoadingStateHolder();
-//    ErrorStateHolder getErrorStateHolder();
-//    ErrorNetWorkStateHolder getErrorNetWorkStateHolder();
 }

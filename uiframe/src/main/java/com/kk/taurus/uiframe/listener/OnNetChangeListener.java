@@ -22,5 +22,5 @@ package com.kk.taurus.uiframe.listener;
 
 public interface OnNetChangeListener {
     void onNetWorkError();
-    void onNetWorkConnected(boolean isWifi,int ext);
+    void onNetWorkConnected(boolean isWifi, int ext);
 }

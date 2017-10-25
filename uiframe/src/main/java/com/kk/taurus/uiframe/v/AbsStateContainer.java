@@ -62,8 +62,13 @@ public abstract class AbsStateContainer extends BaseHolder implements IStateCont
     @Override
     public void setState(BaseState state) {
         this.mState = state;
-        if(mUserHolder!=null && mUserHolder.titleBarHolder!=null){
-            mUserHolder.titleBarHolder.setState(state);
+        if(mUserHolder!=null){
+            if(mUserHolder.titleBarHolder!=null){
+                mUserHolder.titleBarHolder.setState(state);
+            }
+            if(mUserHolder.loadingHolder!=null){
+                mUserHolder.loadingHolder.setState(state);
+            }
         }
     }
 

@@ -40,8 +40,11 @@ public abstract class AbsActivity extends AppCompatActivity {
             onBeforeSetContentView();
             setContentView(mRootView);
             onInit(savedInstanceState);
+            onLoadState();
         }
     }
+
+    protected abstract void onLoadState();
 
     protected void onBeforeSetContentView() {
 

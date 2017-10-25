@@ -17,6 +17,7 @@
 package com.kk.taurus.uiframe.v;
 
 import android.content.Context;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.kk.taurus.uiframe.i.IUserHolder;
@@ -41,6 +42,7 @@ public abstract class BaseStateContainer extends AbsStateContainer {
     @Override
     public void onCreate() {
         mRootContainer = new FrameLayout(mContext);
+        mRootContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setContentView(mRootContainer);
     }
 

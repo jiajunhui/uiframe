@@ -37,7 +37,7 @@ public abstract class ContentHolder<T extends HolderData> extends BaseHolder imp
     }
 
     @Override
-    public void onHolderCreated(Bundle savedInstanceState){
+    public void onHolderCreated(){
 
     }
 
@@ -87,6 +87,7 @@ public abstract class ContentHolder<T extends HolderData> extends BaseHolder imp
 
     }
 
+    @Override
     public boolean onBackPressed(){
         return false;
     }
