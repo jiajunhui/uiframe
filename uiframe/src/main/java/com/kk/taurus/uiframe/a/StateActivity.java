@@ -104,6 +104,13 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
         return null;
     }
 
+    protected View getContainerRoot(){
+        if(mStateContainer!=null){
+            return mStateContainer.getRootContainer();
+        }
+        return null;
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
