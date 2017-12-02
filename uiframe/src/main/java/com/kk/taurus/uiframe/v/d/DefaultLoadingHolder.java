@@ -14,15 +14,31 @@
  *    limitations under the License.
  */
 
-package com.kk.taurus.uiframe.i;
+package com.kk.taurus.uiframe.v.d;
+
+import android.content.Context;
+
+import com.kk.taurus.uiframe.R;
+import com.kk.taurus.uiframe.listener.OnHolderListener;
+import com.kk.taurus.uiframe.v.BaseLoadingHolder;
 
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by Taurus on 2017/12/2.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public class DefaultLoadingHolder extends BaseLoadingHolder {
+
+    public DefaultLoadingHolder(Context context) {
+        super(context);
+    }
+
+    public DefaultLoadingHolder(Context context, OnHolderListener onHolderListener) {
+        super(context, onHolderListener);
+    }
+
+    @Override
+    public void onCreate() {
+        setContentView(R.layout.layout_default_loading);
+    }
+
 }

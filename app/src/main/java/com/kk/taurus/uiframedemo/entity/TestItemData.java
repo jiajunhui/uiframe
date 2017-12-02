@@ -14,15 +14,28 @@
  *    limitations under the License.
  */
 
-package com.kk.taurus.uiframe.i;
+package com.kk.taurus.uiframedemo.entity;
 
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by Taurus on 2017/11/10.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public class TestItemData {
+
+    private String text;
+
+    public TestItemData() {
+    }
+
+    public TestItemData(String text) {
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 }

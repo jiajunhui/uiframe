@@ -19,6 +19,7 @@ package com.kk.taurus.uiframe.v;
 
 import android.content.Context;
 
+import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.i.IUserHolder;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
 
@@ -38,6 +39,11 @@ public class FrameTitleBarContainer extends BaseStateContainer {
 
     @Override
     protected void onLayoutLogic() {
+
+    }
+
+    @Override
+    protected void onStateChange(BaseState state) {
 
     }
 

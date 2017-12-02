@@ -29,7 +29,7 @@ import com.kk.taurus.uiframe.listener.OnHolderListener;
 
 public abstract class AbsStateContainer extends BaseHolder implements IStateContainer {
 
-    protected BaseState mState = new BaseState(BaseState.STATE_SUCCESS);
+    protected BaseState mState;
     protected BaseUserHolder mUserHolder;
 
     public AbsStateContainer(Context context, IUserHolder userHolder) {
@@ -61,6 +61,11 @@ public abstract class AbsStateContainer extends BaseHolder implements IStateCont
 
     @Override
     public void setState(BaseState state) {
+        boolean isStateChange = isStateChange(state);
+        if(isStateChange){
+            onStateChange(state);
+            notifyContentHolderPageStateChange(state);
+        }
         this.mState = state;
         if(mUserHolder!=null){
             if(mUserHolder.titleBarHolder!=null){
@@ -70,6 +75,20 @@ public abstract class AbsStateContainer extends BaseHolder implements IStateCont
                 mUserHolder.loadingHolder.setState(state);
             }
         }
+    }
+
+    private void notifyContentHolderPageStateChange(BaseState state) {
+        if(mUserHolder!=null) {
+            if (mUserHolder.contentHolder != null) {
+                mUserHolder.contentHolder.onPageStateChange(state);
+            }
+        }
+    }
+
+    protected abstract void onStateChange(BaseState state);
+
+    private boolean isStateChange(BaseState newState){
+        return mState==null || (mState.getStateCode()!=newState.getStateCode());
     }
 
     public BaseUserHolder getUserHolder() {

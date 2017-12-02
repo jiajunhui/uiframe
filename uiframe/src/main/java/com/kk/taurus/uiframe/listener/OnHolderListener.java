@@ -22,7 +22,13 @@ import android.os.Bundle;
  * Created by Taurus on 2017/9/30.
  */
 
-public interface OnHolderListener {
+public interface OnHolderListener{
+
+    String KEY_INT_DATA = "int_data";
+    String KEY_LONG_DATA = "long_data";
+    String KEY_STRING_DATA = "string_data";
+    String KEY_BOOLEAN_DATA = "boolean_data";
+    String KEY_SERIALIZABLE_DATA = "serializable_data";
 
     /**
      * when holder event occur,callback this method,include bundle data.

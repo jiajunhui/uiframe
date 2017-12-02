@@ -25,11 +25,15 @@ import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.i.HolderData;
 import com.kk.taurus.uiframe.i.IUserHolder;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
+import com.kk.taurus.uiframe.v.BaseErrorHolder;
+import com.kk.taurus.uiframe.v.BaseLoadingHolder;
 import com.kk.taurus.uiframe.v.BaseStateContainer;
 import com.kk.taurus.uiframe.v.BaseTitleBarHolder;
 import com.kk.taurus.uiframe.v.BaseUserHolder;
 import com.kk.taurus.uiframe.v.ContentHolder;
 import com.kk.taurus.uiframe.v.NoTitleBarContainer;
+import com.kk.taurus.uiframe.v.d.DefaultErrorHolder;
+import com.kk.taurus.uiframe.v.d.DefaultLoadingHolder;
 
 /**
  * Created by Taurus on 2017/9/27.
@@ -42,7 +46,7 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     protected T mData;
 
     @Override
-    protected View getContentView() {
+    protected final View getContentView() {
         mStateContainer = getStateContainer();
         if(mStateContainer==null)
             return null;
@@ -100,13 +104,6 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     protected H getUserContentHolder(){
         if(isUserHolderAvailable()){
             return (H) mStateContainer.getUserHolder().contentHolder;
-        }
-        return null;
-    }
-
-    protected View getContainerRoot(){
-        if(mStateContainer!=null){
-            return mStateContainer.getRootContainer();
         }
         return null;
     }
@@ -203,5 +200,15 @@ public abstract class StateActivity<T extends HolderData, H extends ContentHolde
     @Override
     public BaseTitleBarHolder onBindTitleBarHolder() {
         return null;
+    }
+
+    @Override
+    public BaseLoadingHolder onBindLoadingHolder() {
+        return new DefaultLoadingHolder(this,this);
+    }
+
+    @Override
+    public BaseErrorHolder onBindErrorHolder() {
+        return new DefaultErrorHolder(this,this);
     }
 }

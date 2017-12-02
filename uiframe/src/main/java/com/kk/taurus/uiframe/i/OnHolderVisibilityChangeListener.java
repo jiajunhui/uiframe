@@ -17,12 +17,9 @@
 package com.kk.taurus.uiframe.i;
 
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by Taurus on 2017/12/2.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public interface OnHolderVisibilityChangeListener {
+    void onVisibilityChange(int visibility);
 }

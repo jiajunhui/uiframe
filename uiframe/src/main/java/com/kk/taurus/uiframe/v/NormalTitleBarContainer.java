@@ -18,12 +18,15 @@ package com.kk.taurus.uiframe.v;
 
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.d.BaseTitleBarParams;
 import com.kk.taurus.uiframe.i.IUserHolder;
+import com.kk.taurus.uiframe.i.OnHolderVisibilityChangeListener;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
 
 /**
@@ -32,7 +35,7 @@ import com.kk.taurus.uiframe.listener.OnHolderListener;
 
 public class NormalTitleBarContainer extends BaseStateContainer {
 
-    private FrameLayout mContentContainer;
+    protected FrameLayout mContentContainer;
 
     public NormalTitleBarContainer(Context context, IUserHolder userHolder) {
         super(context, userHolder);
@@ -49,27 +52,52 @@ public class NormalTitleBarContainer extends BaseStateContainer {
         BaseTitleBarParams baseTitleBarParams = mUserHolder.titleBarHolder.getTitleBarParams();
         if(baseTitleBarParams == null)
             return;
-        int height = baseTitleBarParams.titleBarHeight;
-        if(height <= 0)
+        final int titleBarHeight = baseTitleBarParams.titleBarHeight;
+        if(titleBarHeight <= 0)
             return;
-        mRootContainer.addView(mUserHolder.titleBarHolder.getHolderView()
-                ,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height));
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.topMargin = height;
+        View titleBarView = mUserHolder.titleBarHolder.getHolderView();
+        ViewCompat.setElevation(titleBarView,25f);
+        //add title bar view
+        mRootContainer.addView(titleBarView
+                ,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, titleBarHeight));
 
         mContentContainer = new FrameLayout(mContext);
         if(mUserHolder.contentHolder==null)
             return;
-        mContentContainer.addView(mUserHolder.contentHolder.getHolderView()
+        View contentView = mUserHolder.contentHolder.getHolderView();
+        //add content view
+        mContentContainer.addView(contentView
                 ,new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
+        //add content container
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.topMargin = titleBarHeight;
         mRootContainer.addView(mContentContainer,layoutParams);
+
+        mUserHolder.titleBarHolder.setOnHolderVisibilityChangeListener(new OnHolderVisibilityChangeListener() {
+            @Override
+            public void onVisibilityChange(int visibility) {
+                switch (visibility){
+                    case View.VISIBLE:
+                        notifyContentContainerParams(titleBarHeight);
+                        break;
+                    case View.GONE:
+                        notifyContentContainerParams(0);
+                        break;
+                }
+            }
+        });
+    }
+
+    private void notifyContentContainerParams(int titleBarHeight){
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mContentContainer.getLayoutParams();
+        layoutParams.topMargin = titleBarHeight;
+        mContentContainer.setLayoutParams(layoutParams);
     }
 
     @Override
-    public void setState(BaseState state) {
-        super.setState(state);
+    public void onStateChange(BaseState state) {
         switch (state.getStateCode()){
             case BaseState.STATE_SUCCESS:
                 if(mUserHolder.contentHolder==null)

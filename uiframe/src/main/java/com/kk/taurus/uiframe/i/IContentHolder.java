@@ -24,17 +24,11 @@ import android.os.Bundle;
  * Created by Taurus on 2017/1/17.
  */
 
-public interface IContentHolder {
+public interface IContentHolder extends HolderLifeCycle{
     void onHolderCreated();
     Intent getIntent();
     void onNewIntent(Intent intent);
-    void onRestart();
-    void onStart();
-    void onResume();
-    void onPause();
-    void onStop();
     boolean onBackPressed();
-    void onDestroy();
     void finish();
     void onConfigurationChanged(Configuration newConfig);
     void onSaveInstanceState(Bundle outState);

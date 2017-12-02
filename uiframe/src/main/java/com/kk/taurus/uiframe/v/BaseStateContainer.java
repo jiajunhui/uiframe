@@ -17,8 +17,6 @@
 package com.kk.taurus.uiframe.v;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -44,13 +42,8 @@ public abstract class BaseStateContainer extends AbsStateContainer {
     @Override
     public void onCreate() {
         mRootContainer = new FrameLayout(mContext);
-        mRootContainer.setBackgroundColor(Color.TRANSPARENT);
         mRootContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setContentView(mRootContainer);
-    }
-
-    public View getRootContainer(){
-        return mRootContainer;
     }
 
 }

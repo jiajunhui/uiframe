@@ -29,6 +29,7 @@ public interface IResource {
     Resources getResource();
     float getDimension(int id);
     String getString(int id);
+    String getString(int id, Object... formatArgs);
     Drawable getDrawable(int id);
     int getColor(int id);
 }

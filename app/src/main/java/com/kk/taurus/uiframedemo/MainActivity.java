@@ -7,17 +7,13 @@ import android.util.Log;
 
 import com.kk.taurus.uiframe.a.TitleBarActivity;
 import com.kk.taurus.uiframe.d.BaseState;
-import com.kk.taurus.uiframe.d.BaseTitleBarParams;
 import com.kk.taurus.uiframe.i.ITitleBar;
 import com.kk.taurus.uiframe.i.OnForeOrBackgroundCallback;
 import com.kk.taurus.uiframe.manager.ActivityManager;
 import com.kk.taurus.uiframe.v.BaseErrorHolder;
-import com.kk.taurus.uiframe.v.BaseLoadingHolder;
 import com.kk.taurus.uiframe.v.BaseTitleBarHolder;
 import com.kk.taurus.uiframe.v.ContentHolder;
 import com.kk.taurus.uiframedemo.entity.MainData;
-import com.kk.taurus.uiframedemo.holder.AppTitleBarHolder;
-import com.kk.taurus.uiframedemo.holder.ErrorHolder;
 import com.kk.taurus.uiframedemo.holder.MainHolder;
 
 public class MainActivity extends TitleBarActivity<MainData,MainHolder> implements MainHolder.OnMainHolderListener, OnForeOrBackgroundCallback {
@@ -36,7 +32,7 @@ public class MainActivity extends TitleBarActivity<MainData,MainHolder> implemen
         }, 2000);
         getUserContentHolder().setOnMainHolderListener(this);
         BaseTitleBarHolder titleBarHolder = getUserHolder().titleBarHolder;
-        ((AppTitleBarHolder)titleBarHolder).setTitle("我是标题");
+        titleBarHolder.setTitle("我是标题");
 
         ActivityManager.getInstance().registerGroundCallback(this);
 
@@ -68,38 +64,13 @@ public class MainActivity extends TitleBarActivity<MainData,MainHolder> implemen
     public void onIntentToNoTitleBarPage() {
         Intent intent = new Intent(this,NoTitleBarActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public BaseTitleBarHolder onBindTitleBarHolder() {
-        return new AppTitleBarHolder(this,this){
-            @Override
-            public BaseTitleBarParams getTitleBarParams() {
-                BaseTitleBarParams params = new BaseTitleBarParams();
-                params.titleBarHeight = 180;
-                return params;
-            }
-        };
+//        boolean visible = isTitleBarVisible();
+//        setTitleBarVisibleState(!visible);
     }
 
     @Override
     public ContentHolder onBindContentHolder() {
         return new MainHolder(this);
-    }
-
-    @Override
-    public BaseLoadingHolder onBindLoadingHolder() {
-        return new BaseLoadingHolder(this) {
-            @Override
-            public void onCreate() {
-                setContentView(R.layout.layout_loading);
-            }
-        };
-    }
-
-    @Override
-    public BaseErrorHolder onBindErrorHolder() {
-        return new ErrorHolder(this,this);
     }
 
     @Override

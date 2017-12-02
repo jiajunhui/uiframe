@@ -27,7 +27,7 @@ public class ErrorHolder extends BaseErrorHolder {
         getViewById(R.id.error).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnHolderListener.onHolderEvent(BaseErrorHolder.ERROR_EVENT_ON_ERROR_CLICK,null);
+                getHolderListener().onHolderEvent(BaseErrorHolder.ERROR_EVENT_ON_ERROR_CLICK,null);
             }
         });
 

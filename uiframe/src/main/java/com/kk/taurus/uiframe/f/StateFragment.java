@@ -16,6 +16,7 @@
 
 package com.kk.taurus.uiframe.f;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -59,7 +60,11 @@ public abstract class StateFragment<T extends HolderData, H extends ContentHolde
     protected void onLoadState() {
         setPageState(BaseState.SUCCESS);
     }
-
+    
+    @Override
+    protected void onLazyLoad() {
+    }
+    
     /**
      * set fragment page state.
      * @param state
@@ -92,6 +97,14 @@ public abstract class StateFragment<T extends HolderData, H extends ContentHolde
         if(contentHolder!=null){
             contentHolder.onDataChanged(data);
         }
+    }
+    
+    protected boolean hasData() {
+        return mData != null;
+    }
+    
+    protected Context getApplicationContext() {
+        return getContext().getApplicationContext();
     }
 
     /**
@@ -149,9 +162,10 @@ public abstract class StateFragment<T extends HolderData, H extends ContentHolde
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         if(getUserContentHolder()!=null)
             getUserContentHolder().onDestroy();
+        
+        super.onDestroy();
     }
 
     @Override

@@ -16,13 +16,14 @@
 
 package com.kk.taurus.uiframe.i;
 
+import com.kk.taurus.uiframe.d.BaseState;
+
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by mtime on 2017/11/30.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public interface IStateLayout {
+
+    void setState(BaseState state);
+
 }

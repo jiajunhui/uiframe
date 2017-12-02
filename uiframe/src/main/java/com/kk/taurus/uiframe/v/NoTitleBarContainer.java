@@ -43,8 +43,7 @@ public class NoTitleBarContainer extends BaseStateContainer {
     }
 
     @Override
-    public void setState(BaseState state) {
-        super.setState(state);
+    public void onStateChange(BaseState state) {
         switch (state.getStateCode()){
             case BaseState.STATE_SUCCESS:
                 mRootContainer.removeAllViews();

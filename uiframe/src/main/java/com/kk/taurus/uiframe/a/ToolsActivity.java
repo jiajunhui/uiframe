@@ -34,7 +34,7 @@ import com.kk.taurus.uiframe.w.NetChangeReceiver;
  * Created by Taurus on 2017/9/30.
  */
 
-public abstract class ToolsActivity extends FilterActivity implements IToolsInterface, OnNetChangeListener {
+public abstract class ToolsActivity extends AbsActivity implements IToolsInterface, OnNetChangeListener {
 
     private boolean isFullScreen;
     private NetChangeReceiver mNetChangeReceiver;

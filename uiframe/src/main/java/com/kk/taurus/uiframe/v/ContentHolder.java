@@ -21,8 +21,15 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.i.HolderData;
+import com.kk.taurus.uiframe.i.HolderLifeCycle;
 import com.kk.taurus.uiframe.i.IContentHolder;
+import com.kk.taurus.uiframe.listener.OnHolderListener;
+import com.kk.taurus.uiframe.manager.HolderPoolCallbackHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Taurus on 2017/1/17.
@@ -31,14 +38,39 @@ import com.kk.taurus.uiframe.i.IContentHolder;
 public abstract class ContentHolder<T extends HolderData> extends BaseHolder implements IContentHolder {
 
     protected T mData;
+    private List<BaseHolder> mHolderPool;
+    private HolderPoolCallbackHandler mCallbackHandler;
 
     public ContentHolder(Context context) {
-        super(context);
+        this(context, null);
+    }
+
+    public ContentHolder(Context context, OnHolderListener onHolderListener) {
+        super(context, onHolderListener);
+        mHolderPool = new ArrayList<>();
+        mCallbackHandler = new HolderPoolCallbackHandler(mHolderPool);
     }
 
     @Override
     public void onHolderCreated(){
 
+    }
+
+    public void onPageStateChange(BaseState state){
+
+    }
+
+    protected final void addHolderToLifeCyclePool(BaseHolder holder){
+        if(mHolderPool == null){
+            mHolderPool = new ArrayList<>();
+        }
+        mHolderPool.add(holder);
+    }
+
+    private void clearHolderPool(){
+        if(mHolderPool!=null){
+            mHolderPool.clear();
+        }
     }
 
     public void onDataChanged(T data){
@@ -52,7 +84,7 @@ public abstract class ContentHolder<T extends HolderData> extends BaseHolder imp
 
     @Override
     public void onRestart() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_RESTART);
     }
 
     @Override
@@ -69,22 +101,22 @@ public abstract class ContentHolder<T extends HolderData> extends BaseHolder imp
 
     @Override
     public void onStart() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_START);
     }
 
     @Override
     public void onResume() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_RESUME);
     }
 
     @Override
     public void onPause() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_PAUSE);
     }
 
     @Override
     public void onStop() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_STOP);
     }
 
     @Override
@@ -94,7 +126,8 @@ public abstract class ContentHolder<T extends HolderData> extends BaseHolder imp
 
     @Override
     public void onDestroy() {
-
+        mCallbackHandler.handleCallback(HolderLifeCycle.LIFE_CYCLE_ON_DESTROY);
+        clearHolderPool();
     }
 
     @Override

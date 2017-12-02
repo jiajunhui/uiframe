@@ -35,7 +35,7 @@ public class AppTitleBarHolder extends BaseTitleBarHolder implements ITitleBar {
         getViewById(R.id.tv_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnHolderListener.onHolderEvent(TITLE_BAR_EVENT_NAVIGATION_CLICK,null);
+                getHolderListener().onHolderEvent(TITLE_BAR_EVENT_NAVIGATION_CLICK,null);
             }
         });
     }

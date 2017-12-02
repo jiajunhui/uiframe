@@ -17,12 +17,23 @@
 package com.kk.taurus.uiframe.i;
 
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by mtime on 2017/11/22.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public interface HolderLifeCycle {
+
+    int LIFE_CYCLE_ON_RESTART = 2;
+    int LIFE_CYCLE_ON_START = 4;
+    int LIFE_CYCLE_ON_RESUME = 6;
+    int LIFE_CYCLE_ON_PAUSE = 8;
+    int LIFE_CYCLE_ON_STOP = 10;
+    int LIFE_CYCLE_ON_DESTROY = 12;
+
+    void onRestart();
+    void onStart();
+    void onResume();
+    void onPause();
+    void onStop();
+    void onDestroy();
+
 }

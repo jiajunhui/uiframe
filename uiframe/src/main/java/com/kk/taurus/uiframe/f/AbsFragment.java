@@ -23,6 +23,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 /**
  * Created by Taurus on 2017/10/9.
@@ -32,6 +33,7 @@ public abstract class AbsFragment extends Fragment {
 
     protected Context mContext;
     protected View mRootView;
+    protected boolean mInitialized = false;
 
     @Override
     public void onAttach(Context context) {
@@ -42,10 +44,47 @@ public abstract class AbsFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        onInit(savedInstanceState);
-        onLoadState();
+        if(!mInitialized) {
+            onInit(savedInstanceState);
+            onLoadState();
+            if (getUserVisibleHint()) {
+                onVisible();
+            }
+            mInitialized = true;
+        }
     }
-
+    
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if(mInitialized) {
+            if (getUserVisibleHint()) {
+                onVisible();
+            } else {
+                onInvisible();
+            }
+        }
+    }
+    
+    /**
+     * 可见
+     */
+    protected void onVisible() {
+        onLazyLoad();
+    }
+    
+    /**
+     * 不可见
+     */
+    protected void onInvisible() {
+    }
+    
+    /**
+     * 延迟加载
+     * 子类必须重写此方法
+     */
+    protected abstract void onLazyLoad();
+    
     protected abstract void onLoadState();
 
     protected void onInit(Bundle savedInstanceState) {
@@ -55,7 +94,14 @@ public abstract class AbsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = getContentView(inflater,container,savedInstanceState);
+        if(null != mRootView) {
+            ViewGroup parent = (ViewGroup) mRootView.getParent();
+            if (parent != null) {
+                parent.removeView(mRootView);
+            }
+        } else {
+            mRootView = getContentView(inflater, container, savedInstanceState);
+        }
         return mRootView;
     }
 

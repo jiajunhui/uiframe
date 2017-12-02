@@ -16,17 +16,18 @@
 
 package com.kk.taurus.uiframe.a;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.kk.taurus.uiframe.manager.ActivityFilterManager;
 import com.kk.taurus.uiframe.manager.ActivityManager;
 
 /**
  * Created by Taurus on 2017/9/27.
  */
-
 public abstract class AbsActivity extends AppCompatActivity {
 
     protected View mRootView;
@@ -37,14 +38,20 @@ public abstract class AbsActivity extends AppCompatActivity {
         ActivityManager.getInstance().onActivityCreated(this,savedInstanceState);
         mRootView = getContentView();
         if(mRootView!=null){
+            onParseIntent();
             onBeforeSetContentView();
             setContentView(mRootView);
+
             onInit(savedInstanceState);
             onLoadState();
         }
     }
 
     protected abstract void onLoadState();
+
+    protected void onParseIntent(){
+
+    }
 
     protected void onBeforeSetContentView() {
 
@@ -88,6 +95,24 @@ public abstract class AbsActivity extends AppCompatActivity {
 
     public void onFinish(){
         finish();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        ActivityFilterManager.getInstance().onNewIntent(this, intent);
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        ActivityFilterManager.getInstance().startActivity(this, intent);
+        super.startActivity(intent);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        ActivityFilterManager.getInstance().startActivityForResult(this, intent, requestCode);
+        super.startActivityForResult(intent, requestCode);
     }
 
     @Override

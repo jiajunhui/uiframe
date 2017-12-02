@@ -14,36 +14,37 @@
  *    limitations under the License.
  */
 
-package com.kk.taurus.uiframe.v;
+package com.kk.taurus.uiframe.v.d;
 
 import android.content.Context;
+import android.view.View;
 
-import com.kk.taurus.uiframe.d.BaseState;
-import com.kk.taurus.uiframe.d.BaseTitleBarParams;
+import com.kk.taurus.uiframe.R;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
+import com.kk.taurus.uiframe.v.BaseErrorHolder;
 
 /**
- * Created by Taurus on 2017/9/30.
+ * Created by Taurus on 2017/12/2.
  */
 
-public abstract class BaseTitleBarHolder extends BaseHolder {
+public class DefaultErrorHolder extends BaseErrorHolder {
 
-    protected BaseState mState;
-
-    public BaseTitleBarHolder(Context context) {
+    public DefaultErrorHolder(Context context) {
         super(context);
     }
 
-    public BaseTitleBarHolder(Context context, OnHolderListener onHolderListener) {
+    public DefaultErrorHolder(Context context, OnHolderListener onHolderListener) {
         super(context, onHolderListener);
     }
 
-    public void setState(BaseState state){
-        this.mState = state;
+    @Override
+    public void onCreate() {
+        setContentView(R.layout.layout_default_error_state);
+        mRootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onHolderEvent(ERROR_EVENT_ON_ERROR_CLICK,null);
+            }
+        });
     }
-
-    public abstract BaseTitleBarParams getTitleBarParams();
-
-    public abstract void setTitle(CharSequence title);
-
 }

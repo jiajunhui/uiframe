@@ -14,15 +14,16 @@
  *    limitations under the License.
  */
 
-package com.kk.taurus.uiframe.i;
+package com.kk.taurus.uiframe.listener;
+
+import android.os.Bundle;
 
 /**
- * Created by Taurus on 2017/1/13.
+ * Created by mtime on 2017/11/22.
  */
 
-public interface BaseViewHandle {
-    void setBackgroundColor(int color);
-    void setVisibility(int visibility);
-    int getVisibility();
-    void setGravity(int gravity);
+public interface OnInterceptEventListener {
+
+    boolean onInterceptHolderEvent(int eventCode, Bundle bundle);
+
 }
