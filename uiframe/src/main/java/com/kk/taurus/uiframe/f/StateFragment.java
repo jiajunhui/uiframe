@@ -27,11 +27,15 @@ import com.kk.taurus.uiframe.d.BaseState;
 import com.kk.taurus.uiframe.i.HolderData;
 import com.kk.taurus.uiframe.i.IUserHolder;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
+import com.kk.taurus.uiframe.v.BaseErrorHolder;
+import com.kk.taurus.uiframe.v.BaseLoadingHolder;
 import com.kk.taurus.uiframe.v.BaseStateContainer;
 import com.kk.taurus.uiframe.v.BaseTitleBarHolder;
 import com.kk.taurus.uiframe.v.BaseUserHolder;
 import com.kk.taurus.uiframe.v.ContentHolder;
 import com.kk.taurus.uiframe.v.NoTitleBarContainer;
+import com.kk.taurus.uiframe.v.d.DefaultErrorHolder;
+import com.kk.taurus.uiframe.v.d.DefaultLoadingHolder;
 
 /**
  * Created by Taurus on 2017/10/9.
@@ -187,4 +191,13 @@ public abstract class StateFragment<T extends HolderData, H extends ContentHolde
         return null;
     }
 
+    @Override
+    public BaseLoadingHolder onBindLoadingHolder() {
+        return new DefaultLoadingHolder(getContext(),this);
+    }
+
+    @Override
+    public BaseErrorHolder onBindErrorHolder() {
+        return new DefaultErrorHolder(getContext(),this);
+    }
 }

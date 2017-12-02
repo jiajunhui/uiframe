@@ -17,6 +17,7 @@
 package com.kk.taurus.uiframe.v.d;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,6 +34,8 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
 
     public static final int DEFAULT_TITLE_BAR_EVENT_BACK_ICON_CLICK = -101;
 
+    private AppCompatImageView mBackIcon;
+    private AppCompatImageView mMenuIcon;
     private TextView mTvTitle;
 
     public DefaultTitleBarHolder(Context context) {
@@ -53,6 +56,8 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
     @Override
     public void onCreate() {
         setContentView(R.layout.layout_default_title_bar);
+        mBackIcon = getViewById(R.id.default_title_bar_back_icon);
+        mMenuIcon = getViewById(R.id.default_title_bar_menu_icon);
 
         mTvTitle = getViewById(R.id.default_title_bar_center_title);
 
@@ -67,5 +72,21 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
     @Override
     public void setTitle(CharSequence title) {
         mTvTitle.setText(title);
+    }
+
+    public void setBackIcon(int resId){
+        mBackIcon.setImageResource(resId);
+    }
+
+    public void setBackIconVisibility(int visibility){
+        mBackIcon.setVisibility(visibility);
+    }
+
+    public void setMenuIconVisibility(int visibility){
+        mMenuIcon.setVisibility(visibility);
+    }
+
+    public void setMenuIcon(int resId){
+        mMenuIcon.setImageResource(resId);
     }
 }
