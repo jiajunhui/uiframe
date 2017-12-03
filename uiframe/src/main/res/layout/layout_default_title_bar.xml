@@ -34,6 +34,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/default_title_bar_height"
         android:layout_marginRight="@dimen/default_title_bar_height"
+        android:singleLine="true"
         android:textSize="@dimen/default_title_bar_text_size_center_title"
         android:textColor="@color/default_title_bar_text_color_center_title"
         android:gravity="center"
