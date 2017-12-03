@@ -39,11 +39,11 @@
         android:gravity="center"
         android:text=""/>
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/default_title_bar_menu_icon"
+    <com.kk.taurus.uiframe.w.TitleBarMenu
+        android:id="@+id/default_title_bar_menu"
         android:layout_width="@dimen/default_title_bar_height"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:scaleType="centerInside"/>
+        />
 
 </RelativeLayout>

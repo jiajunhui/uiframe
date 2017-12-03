@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.kk.taurus.uiframe.a.TitleBarActivity;
 import com.kk.taurus.uiframe.d.BaseState;
@@ -13,6 +15,8 @@ import com.kk.taurus.uiframe.manager.ActivityManager;
 import com.kk.taurus.uiframe.v.BaseErrorHolder;
 import com.kk.taurus.uiframe.v.BaseTitleBarHolder;
 import com.kk.taurus.uiframe.v.ContentHolder;
+import com.kk.taurus.uiframe.v.d.DefaultTitleBarHolder;
+import com.kk.taurus.uiframe.w.TitleBarMenu;
 import com.kk.taurus.uiframedemo.entity.MainData;
 import com.kk.taurus.uiframedemo.holder.MainHolder;
 
@@ -33,6 +37,17 @@ public class MainActivity extends TitleBarActivity<MainData,MainHolder> implemen
         getUserContentHolder().setOnMainHolderListener(this);
         BaseTitleBarHolder titleBarHolder = getUserHolder().titleBarHolder;
         titleBarHolder.setTitle("我是标题");
+
+        DefaultTitleBarHolder defaultTitleBarHolder = (DefaultTitleBarHolder)titleBarHolder;
+        TitleBarMenu menu = defaultTitleBarHolder.getMenu();
+        menu.setTriggerType(TitleBarMenu.TRIGGER_TYPE_TEXT);
+        menu.setMenuText("设置");
+        menu.setOnMenuListener(new TitleBarMenu.OnMenuListener() {
+            @Override
+            public void onTriggerClick(int triggerType, View view) {
+                Toast.makeText(MainActivity.this, "click", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         ActivityManager.getInstance().registerGroundCallback(this);
 

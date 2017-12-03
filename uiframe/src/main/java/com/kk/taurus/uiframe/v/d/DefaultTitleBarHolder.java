@@ -25,6 +25,7 @@ import com.kk.taurus.uiframe.R;
 import com.kk.taurus.uiframe.d.BaseTitleBarParams;
 import com.kk.taurus.uiframe.listener.OnHolderListener;
 import com.kk.taurus.uiframe.v.BaseTitleBarHolder;
+import com.kk.taurus.uiframe.w.TitleBarMenu;
 
 /**
  * Created by Taurus on 2017/12/2.
@@ -35,7 +36,7 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
     public static final int DEFAULT_TITLE_BAR_EVENT_BACK_ICON_CLICK = -101;
 
     private AppCompatImageView mBackIcon;
-    private AppCompatImageView mMenuIcon;
+    private TitleBarMenu mMenu;
     private TextView mTvTitle;
 
     public DefaultTitleBarHolder(Context context) {
@@ -57,7 +58,7 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
     public void onCreate() {
         setContentView(R.layout.layout_default_title_bar);
         mBackIcon = getViewById(R.id.default_title_bar_back_icon);
-        mMenuIcon = getViewById(R.id.default_title_bar_menu_icon);
+        mMenu = getViewById(R.id.default_title_bar_menu);
 
         mTvTitle = getViewById(R.id.default_title_bar_center_title);
 
@@ -82,11 +83,7 @@ public class DefaultTitleBarHolder extends BaseTitleBarHolder {
         mBackIcon.setVisibility(visibility);
     }
 
-    public void setMenuIconVisibility(int visibility){
-        mMenuIcon.setVisibility(visibility);
-    }
-
-    public void setMenuIcon(int resId){
-        mMenuIcon.setImageResource(resId);
+    public TitleBarMenu getMenu() {
+        return mMenu;
     }
 }
